@@ -20,4 +20,17 @@ describe('Monkey Portfolio', () => {
 
     expect(screen.getByLabelText(/^developer$/i)).toHaveValue('iwazaru');
   });
+
+  it('shows a success state after valid local submission', () => {
+    render(<App />);
+
+    fireEvent.change(screen.getByLabelText(/your name/i), { target: { value: 'Ada' } });
+    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'ada@example.com' } });
+    fireEvent.change(screen.getByLabelText(/project summary/i), {
+      target: { value: 'A playful portfolio.' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: /send project brief/i }));
+
+    expect(screen.getByRole('status')).toHaveTextContent(/brief received/i);
+  });
 });

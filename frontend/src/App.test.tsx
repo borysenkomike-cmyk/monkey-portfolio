@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import App from './App';
 
 describe('Monkey Portfolio', () => {
@@ -39,5 +39,45 @@ describe('Monkey Portfolio', () => {
 
     expect(screen.getByRole('button', { name: /previous developer/i })).toBeEnabled();
     expect(screen.getByRole('button', { name: /next developer/i })).toBeEnabled();
+  });
+
+  it('keeps the contact developer synchronized with profile selection', () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole('button', { name: /select kikazaru/i }));
+
+    expect(screen.getByLabelText(/^developer$/i)).toHaveValue('kikazaru');
+  });
+
+  it('scrolls and moves focus to the selected project', () => {
+    render(<App />);
+    const project = document.getElementById('projects');
+    expect(project).not.toBeNull();
+    project!.scrollIntoView = vi.fn();
+
+    fireEvent.click(screen.getAllByRole('button', { name: /view projects/i })[0]);
+
+    expect(project!.scrollIntoView).toHaveBeenCalledOnce();
+    expect(project).toHaveFocus();
+  });
+
+  it('moves focus into the contact form after booking', () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole('button', { name: /book a call with mizaru/i }));
+
+    expect(screen.getByLabelText(/your name/i)).toHaveFocus();
+  });
+
+  it('announces invalid submission and focuses the first invalid field', () => {
+    render(<App />);
+    const email = screen.getByLabelText(/email/i);
+    fireEvent.change(email, { target: { value: 'ada@example.com' } });
+
+    fireEvent.click(screen.getByRole('button', { name: /send project brief/i }));
+
+    expect(screen.getByRole('alert')).toHaveTextContent(/check the highlighted fields/i);
+    expect(screen.getByLabelText(/your name/i)).toHaveFocus();
+    expect(email).toHaveValue('ada@example.com');
   });
 });

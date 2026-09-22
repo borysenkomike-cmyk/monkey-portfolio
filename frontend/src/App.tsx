@@ -13,15 +13,26 @@ export default function App() {
   const [activeId, setActiveId] = useState<DeveloperId>('mizaru');
   const [contactDeveloper, setContactDeveloper] = useState<DeveloperId>('mizaru');
   const contactRef = useRef<HTMLElement>(null);
-  const projectsRef = useRef<HTMLElement>(null);
 
-  const scrollTo = (element: HTMLElement | null) => {
+  const navigateTo = (element: HTMLElement | null, focusTarget: HTMLElement | null = element) => {
     element?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    focusTarget?.focus({ preventScroll: true });
+  };
+
+  const handleActiveChange = (id: DeveloperId) => {
+    setActiveId(id);
+    setContactDeveloper(id);
   };
 
   const handleBookCall = () => {
     setContactDeveloper(activeId);
-    scrollTo(contactRef.current);
+    const nameField = contactRef.current?.querySelector<HTMLElement>('#contact-name') ?? null;
+    navigateTo(contactRef.current, nameField);
+  };
+
+  const handleViewProjects = () => {
+    const project = document.getElementById('projects');
+    navigateTo(project);
   };
 
   return (
@@ -30,14 +41,12 @@ export default function App() {
       <main>
         <HeroCarousel
           activeId={activeId}
-          onActiveChange={setActiveId}
+          onActiveChange={handleActiveChange}
           onBookCall={handleBookCall}
-          onViewProjects={() => scrollTo(projectsRef.current)}
+          onViewProjects={handleViewProjects}
         />
 
-        <div ref={projectsRef as React.RefObject<HTMLDivElement>}>
-          <DeveloperProfile activeId={activeId} onActiveChange={setActiveId} />
-        </div>
+        <DeveloperProfile activeId={activeId} onActiveChange={handleActiveChange} />
 
         <ContactForm
           ref={contactRef}

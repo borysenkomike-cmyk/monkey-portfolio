@@ -38,6 +38,12 @@ export const ContactForm = forwardRef<HTMLElement, ContactFormProps>(
 
       if (Object.keys(nextErrors).length > 0) {
         setErrors(nextErrors);
+        const firstInvalidField = (['name', 'email', 'developer', 'summary'] as const).find(
+          (field) => nextErrors[field],
+        );
+        if (firstInvalidField) {
+          document.getElementById(`contact-${firstInvalidField}`)?.focus();
+        }
         return;
       }
 
@@ -69,6 +75,11 @@ export const ContactForm = forwardRef<HTMLElement, ContactFormProps>(
           </div>
         ) : (
           <form className="contact-form" onSubmit={handleSubmit} noValidate>
+            {Object.keys(errors).length > 0 && (
+              <p className="contact-form__error-summary" role="alert">
+                Please check the highlighted fields and try again.
+              </p>
+            )}
             <div className="field">
               <label htmlFor="contact-name">Your name</label>
               <input

@@ -33,4 +33,11 @@ describe('Monkey Portfolio', () => {
 
     expect(screen.getByRole('status')).toHaveTextContent(/brief received/i);
   });
+
+  it('keeps carousel controls available independent of animation', () => {
+    render(<App />);
+
+    expect(screen.getByRole('button', { name: /previous developer/i })).toBeEnabled();
+    expect(screen.getByRole('button', { name: /next developer/i })).toBeEnabled();
+  });
 });

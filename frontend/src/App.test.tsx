@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import App from './App';
 
 describe('Monkey Portfolio', () => {
@@ -63,16 +63,12 @@ describe('Monkey Portfolio', () => {
     expect(screen.getByLabelText(/^developer$/i)).toHaveValue('kikazaru');
   });
 
-  it('scrolls and moves focus to the selected project', () => {
+  it('links to the selected project with a native anchor', () => {
     render(<App />);
-    const project = document.getElementById('projects');
-    expect(project).not.toBeNull();
-    project!.scrollIntoView = vi.fn();
 
-    fireEvent.click(screen.getAllByRole('button', { name: /view projects/i })[0]);
+    const projectLink = screen.getAllByRole('link', { name: /view projects/i })[0];
 
-    expect(project!.scrollIntoView).toHaveBeenCalledOnce();
-    expect(project).toHaveFocus();
+    expect(projectLink).toHaveAttribute('href', '#projects');
   });
 
   it('announces invalid submission and focuses the first invalid field', () => {

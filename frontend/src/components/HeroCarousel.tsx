@@ -10,13 +10,11 @@ import { developers, type DeveloperId } from '../data/developers';
 interface HeroCarouselProps {
   activeId: DeveloperId;
   onActiveChange: (id: DeveloperId) => void;
-  onViewProjects: () => void;
 }
 
 export function HeroCarousel({
   activeId,
   onActiveChange,
-  onViewProjects,
 }: HeroCarouselProps) {
   const swiperRef = useRef<SwiperInstance | null>(null);
   const activeIndex = developers.findIndex(({ id }) => id === activeId);
@@ -74,9 +72,9 @@ export function HeroCarousel({
                     Book a call
                     <ArrowDownRight aria-hidden="true" />
                   </a>
-                  <button className="button button--text" type="button" onClick={onViewProjects}>
+                  <a className="button button--text" href="#projects">
                     View projects
-                  </button>
+                  </a>
                 </div>
               </div>
 

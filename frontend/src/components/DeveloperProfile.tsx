@@ -62,7 +62,7 @@ export function DeveloperProfile({ activeId, onActiveChange }: DeveloperProfileP
         </div>
       </div>
 
-      <article className="project-strip" id="projects" aria-labelledby="project-title" tabIndex={-1}>
+      <article className="project-strip" id="projects" aria-labelledby="project-title">
         <div>
           <span>Selected project</span>
           <h3 id="project-title">{developer.project.name}</h3>

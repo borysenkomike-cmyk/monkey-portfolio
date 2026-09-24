@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import App from './App';
 
@@ -9,7 +9,8 @@ describe('Monkey Portfolio', () => {
     fireEvent.click(screen.getByRole('button', { name: /select kikazaru/i }));
 
     expect(screen.getByRole('heading', { name: 'Kikazaru' })).toBeInTheDocument();
-    expect(screen.getByText(/calm systems, even under pressure/i)).toBeInTheDocument();
+    const profile = screen.getByRole('region', { name: /developer profile/i });
+    expect(within(profile).getByText(/calm systems, even under pressure/i)).toBeInTheDocument();
   });
 
   it('keeps the active developer selected when following the booking link', () => {

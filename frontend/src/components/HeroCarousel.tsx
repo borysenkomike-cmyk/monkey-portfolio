@@ -42,7 +42,6 @@ export function HeroCarousel({
         className="crew-swiper"
         modules={[A11y, Keyboard]}
         keyboard={{ enabled: true }}
-        slidesPerView={1}
         speed={650}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
@@ -57,11 +56,7 @@ export function HeroCarousel({
             <article className="hero-slide" style={{ '--accent': developer.accent } as React.CSSProperties}>
               <div className="hero-slide__copy">
                 <span className="hero-slide__role">{developer.role}</span>
-                <p className="hero-slide__statement" aria-label={developer.tagline}>
-                  {developer.tagline.split(' ').map((word) => (
-                    <span key={`${developer.id}-${word}`}>{word} </span>
-                  ))}
-                </p>
+                <p className="hero-slide__statement">{developer.tagline}</p>
 
                 <div className="hero-slide__actions">
                   <a
@@ -99,7 +94,8 @@ export function HeroCarousel({
           <ArrowLeft aria-hidden="true" />
         </button>
         <span className="hero__counter" aria-live="polite">
-          {activeDeveloper.index} <span>/ 03</span>
+          {activeDeveloper.index}
+          <span>/ {String(developers.length).padStart(2, '0')}</span>
         </span>
         <button
           className="icon-button"

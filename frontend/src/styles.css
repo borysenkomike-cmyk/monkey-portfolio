@@ -851,8 +851,13 @@ a {
     gap: 48px;
   }
 
-  .profile__visual {
+  .profile__visual,
+  .profile__content {
     width: 100%;
+    margin-inline: auto;
+  }
+
+  .profile__visual {
     max-width: 620px;
   }
 

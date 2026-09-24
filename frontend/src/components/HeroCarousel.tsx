@@ -33,7 +33,7 @@ export function HeroCarousel({
   return (
     <section className="hero" id="crew" aria-labelledby="crew-title">
       <div className="hero__eyebrow">
-        <span>Digital product studio</span>
+        <span>01 / Meet the crew</span>
         <span>Est. in the canopy</span>
       </div>
 

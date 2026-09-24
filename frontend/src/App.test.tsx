@@ -21,17 +21,30 @@ describe('Monkey Portfolio', () => {
     expect(screen.getByLabelText(/^developer$/i)).toHaveValue('iwazaru');
   });
 
-  it('shows a success state after valid local submission', () => {
+  it('clears the form and announces a valid local submission', () => {
     render(<App />);
 
-    fireEvent.change(screen.getByLabelText(/your name/i), { target: { value: 'Ada' } });
-    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'ada@example.com' } });
-    fireEvent.change(screen.getByLabelText(/project summary/i), {
+    const name = screen.getByLabelText(/your name/i);
+    const email = screen.getByLabelText(/email/i);
+    const summary = screen.getByLabelText(/project summary/i);
+
+    fireEvent.change(name, { target: { value: 'Ada' } });
+    fireEvent.change(email, { target: { value: 'ada@example.com' } });
+    fireEvent.change(summary, {
       target: { value: 'A playful portfolio.' },
     });
     fireEvent.click(screen.getByRole('button', { name: /send project brief/i }));
 
-    expect(screen.getByRole('status')).toHaveTextContent(/brief received/i);
+    expect(screen.getByRole('status')).toHaveTextContent(/request sent/i);
+    expect(name).toHaveValue('');
+    expect(email).toHaveValue('');
+    expect(summary).toHaveValue('');
+  });
+
+  it('numbers the opening section consistently with the rest of the page', () => {
+    render(<App />);
+
+    expect(screen.getByText('01 / Meet the crew')).toBeInTheDocument();
   });
 
   it('keeps carousel controls available independent of animation', () => {

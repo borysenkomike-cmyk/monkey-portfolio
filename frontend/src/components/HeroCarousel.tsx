@@ -78,7 +78,7 @@ export function HeroCarousel() {
         </button>
         <span className="hero__counter" aria-live="polite">
           {activeDeveloper.index}
-          <span>/ {String(developers.length).padStart(2, '0')}</span>
+          <span>/ {developers.length}</span>
         </span>
         <button
           className="icon-button"

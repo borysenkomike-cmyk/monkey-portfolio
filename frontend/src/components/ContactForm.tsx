@@ -8,12 +8,8 @@ import {
   type ContactValues,
 } from '../lib/validateContact';
 
-interface ContactFormProps {
-  selectedDeveloper: DeveloperId;
-  onDeveloperChange: (id: DeveloperId) => void;
-}
-
-export function ContactForm({ selectedDeveloper, onDeveloperChange }: ContactFormProps) {
+export function ContactForm() {
+    const [selectedDeveloper, setSelectedDeveloper] = useState<DeveloperId>('mizaru');
     const [values, setValues] = useState<Omit<ContactValues, 'developer'>>({
       name: '',
       email: '',
@@ -108,7 +104,7 @@ export function ContactForm({ selectedDeveloper, onDeveloperChange }: ContactFor
             <select
               id="contact-developer"
               value={selectedDeveloper}
-              onChange={(event) => onDeveloperChange(event.target.value as DeveloperId)}
+              onChange={(event) => setSelectedDeveloper(event.target.value as DeveloperId)}
               aria-invalid={Boolean(errors.developer)}
               aria-describedby={errors.developer ? 'contact-developer-error' : undefined}
             >

@@ -3,24 +3,23 @@ import { describe, expect, it } from 'vitest';
 import App from './App';
 
 describe('Monkey Portfolio', () => {
-  it('updates hero and profile from the developer selector', () => {
+  it('updates the profile without changing the hero selection', () => {
     render(<App />);
 
     fireEvent.click(screen.getByRole('button', { name: /select kikazaru/i }));
 
-    expect(screen.getByRole('heading', { name: 'Kikazaru' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Mizaru' })).toBeInTheDocument();
     const profile = screen.getByRole('region', { name: /developer profile/i });
     expect(within(profile).getByText(/calm systems, even under pressure/i)).toBeInTheDocument();
   });
 
-  it('keeps the active developer selected when following the booking link', () => {
+  it('links booking to the independent contact form', () => {
     render(<App />);
 
-    fireEvent.click(screen.getByRole('button', { name: /select iwazaru/i }));
-    const bookingLink = screen.getByRole('link', { name: /book a call with iwazaru/i });
+    const bookingLink = screen.getByRole('link', { name: /book a call with mizaru/i });
 
     expect(bookingLink).toHaveAttribute('href', '#contact');
-    expect(screen.getByLabelText(/^developer$/i)).toHaveValue('iwazaru');
+    expect(screen.getByLabelText(/^developer$/i)).toHaveValue('mizaru');
   });
 
   it('clears the form and announces a valid local submission', () => {
@@ -56,12 +55,12 @@ describe('Monkey Portfolio', () => {
     expect(screen.getByRole('button', { name: /next developer/i })).toBeEnabled();
   });
 
-  it('keeps the contact developer synchronized with profile selection', () => {
+  it('keeps contact selection independent from the profile', () => {
     render(<App />);
 
     fireEvent.click(screen.getByRole('button', { name: /select kikazaru/i }));
 
-    expect(screen.getByLabelText(/^developer$/i)).toHaveValue('kikazaru');
+    expect(screen.getByLabelText(/^developer$/i)).toHaveValue('mizaru');
   });
 
   it('links to the selected project with a native anchor', () => {

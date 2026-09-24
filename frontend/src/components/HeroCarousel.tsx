@@ -1,30 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowDownRight, ArrowLeft, ArrowRight } from 'lucide-react';
 import { A11y, Keyboard } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperInstance } from 'swiper';
 import 'swiper/css';
 
-import { developers, type DeveloperId } from '../data/developers';
+import { developers } from '../data/developers';
 
-interface HeroCarouselProps {
-  activeId: DeveloperId;
-  onActiveChange: (id: DeveloperId) => void;
-}
-
-export function HeroCarousel({
-  activeId,
-  onActiveChange,
-}: HeroCarouselProps) {
+export function HeroCarousel() {
   const swiperRef = useRef<SwiperInstance | null>(null);
-  const activeIndex = developers.findIndex(({ id }) => id === activeId);
+  const [activeIndex, setActiveIndex] = useState(0);
   const activeDeveloper = developers[activeIndex];
-
-  useEffect(() => {
-    if (swiperRef.current && swiperRef.current.realIndex !== activeIndex) {
-      swiperRef.current.slideTo(activeIndex);
-    }
-  }, [activeIndex]);
 
   return (
     <section className="hero" id="crew" aria-labelledby="crew-title">
@@ -46,10 +32,7 @@ export function HeroCarousel({
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
-        onSlideChange={(swiper) => {
-          const next = developers[swiper.realIndex];
-          if (next && next.id !== activeId) onActiveChange(next.id);
-        }}
+        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
       >
         {developers.map((developer) => (
           <SwiperSlide key={developer.id}>

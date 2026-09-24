@@ -1,13 +1,10 @@
+import { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
 import { developers, getDeveloperById, type DeveloperId } from '../data/developers';
 
-interface DeveloperProfileProps {
-  activeId: DeveloperId;
-  onActiveChange: (id: DeveloperId) => void;
-}
-
-export function DeveloperProfile({ activeId, onActiveChange }: DeveloperProfileProps) {
+export function DeveloperProfile() {
+  const [activeId, setActiveId] = useState<DeveloperId>('mizaru');
   const developer = getDeveloperById(activeId);
 
   return (
@@ -25,7 +22,7 @@ export function DeveloperProfile({ activeId, onActiveChange }: DeveloperProfileP
             className="profile-selector__button"
             aria-label={`Select ${item.name}`}
             aria-pressed={item.id === activeId}
-            onClick={() => onActiveChange(item.id)}
+            onClick={() => setActiveId(item.id)}
           >
             <span>{item.index}</span>
             {item.name}

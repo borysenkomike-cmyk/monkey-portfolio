@@ -399,20 +399,6 @@ a {
   isolation: isolate;
 }
 
-.profile-section::after {
-  position: absolute;
-  z-index: 0;
-  top: 18%;
-  left: -75px;
-  width: 150px;
-  height: 250px;
-  background: var(--lime);
-  clip-path: polygon(50% 0, 100% 32%, 72% 100%, 50% 76%, 24% 100%, 0 32%);
-  content: "";
-  pointer-events: none;
-  transform: rotate(16deg);
-}
-
 .section-heading {
   display: grid;
   max-width: 1440px;
@@ -1002,10 +988,6 @@ a {
   .profile-section {
     padding-top: 76px;
     padding-bottom: 76px;
-  }
-
-  .profile-section::after {
-    display: none;
   }
 
   .profile-selector {

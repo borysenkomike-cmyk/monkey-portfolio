@@ -9,7 +9,7 @@ describe('Monkey Portfolio', () => {
     fireEvent.click(screen.getByRole('button', { name: /select kikazaru/i }));
 
     expect(screen.getByRole('heading', { name: 'Kikazaru' })).toBeInTheDocument();
-    expect(screen.getByText(/systems that stay calm under pressure/i)).toBeInTheDocument();
+    expect(screen.getByText(/calm systems, even under pressure/i)).toBeInTheDocument();
   });
 
   it('preselects the active developer when booking a call', () => {

@@ -45,7 +45,7 @@ export const developers: Developer[] = [
     index: '02',
     name: 'Kikazaru',
     role: 'Backend Developer',
-    tagline: 'Builds systems that stay calm under pressure.',
+    tagline: 'Calm systems, even under pressure.',
     bio: 'Kikazaru designs dependable foundations for products that need to grow. He likes clear contracts, observable systems, and APIs that are pleasant to use.',
     hobby: 'Restoring mechanical keyboards and brewing unreasonably precise coffee.',
     approach: 'Start with the domain, make failure visible, and keep the architecture as simple as the real constraints allow.',

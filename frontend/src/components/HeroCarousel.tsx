@@ -10,14 +10,12 @@ import { developers, type DeveloperId } from '../data/developers';
 interface HeroCarouselProps {
   activeId: DeveloperId;
   onActiveChange: (id: DeveloperId) => void;
-  onBookCall: () => void;
   onViewProjects: () => void;
 }
 
 export function HeroCarousel({
   activeId,
   onActiveChange,
-  onBookCall,
   onViewProjects,
 }: HeroCarouselProps) {
   const swiperRef = useRef<SwiperInstance | null>(null);
@@ -68,15 +66,14 @@ export function HeroCarousel({
                 </p>
 
                 <div className="hero-slide__actions">
-                  <button
+                  <a
                     className="button button--primary"
-                    type="button"
-                    onClick={onBookCall}
+                    href="#contact"
                     aria-label={`Book a call with ${developer.name}`}
                   >
                     Book a call
                     <ArrowDownRight aria-hidden="true" />
-                  </button>
+                  </a>
                   <button className="button button--text" type="button" onClick={onViewProjects}>
                     View projects
                   </button>

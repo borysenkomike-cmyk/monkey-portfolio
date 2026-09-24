@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { ArrowUpRight, Check, X } from 'lucide-react';
 
 import { developers, type DeveloperId } from '../data/developers';
@@ -13,8 +13,7 @@ interface ContactFormProps {
   onDeveloperChange: (id: DeveloperId) => void;
 }
 
-export const ContactForm = forwardRef<HTMLElement, ContactFormProps>(
-  function ContactForm({ selectedDeveloper, onDeveloperChange }, ref) {
+export function ContactForm({ selectedDeveloper, onDeveloperChange }: ContactFormProps) {
     const [values, setValues] = useState<Omit<ContactValues, 'developer'>>({
       name: '',
       email: '',
@@ -60,7 +59,7 @@ export const ContactForm = forwardRef<HTMLElement, ContactFormProps>(
     };
 
     return (
-      <section className="contact-section" id="contact" ref={ref} aria-labelledby="contact-title">
+      <section className="contact-section" id="contact" aria-labelledby="contact-title">
         <div className="contact-section__intro">
           <span className="section-heading__index">03 / Say hello</span>
           <h2 id="contact-title">Let&apos;s make something bananas.</h2>
@@ -163,5 +162,4 @@ export const ContactForm = forwardRef<HTMLElement, ContactFormProps>(
         )}
       </section>
     );
-  },
-);
+}

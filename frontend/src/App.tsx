@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import { ContactForm } from './components/ContactForm';
 import { DeveloperProfile } from './components/DeveloperProfile';
@@ -12,7 +12,6 @@ const prefersReducedMotion = () =>
 export default function App() {
   const [activeId, setActiveId] = useState<DeveloperId>('mizaru');
   const [contactDeveloper, setContactDeveloper] = useState<DeveloperId>('mizaru');
-  const contactRef = useRef<HTMLElement>(null);
 
   const navigateTo = (element: HTMLElement | null, focusTarget: HTMLElement | null = element) => {
     element?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
@@ -22,12 +21,6 @@ export default function App() {
   const handleActiveChange = (id: DeveloperId) => {
     setActiveId(id);
     setContactDeveloper(id);
-  };
-
-  const handleBookCall = () => {
-    setContactDeveloper(activeId);
-    const nameField = contactRef.current?.querySelector<HTMLElement>('#contact-name') ?? null;
-    navigateTo(contactRef.current, nameField);
   };
 
   const handleViewProjects = () => {
@@ -42,14 +35,12 @@ export default function App() {
         <HeroCarousel
           activeId={activeId}
           onActiveChange={handleActiveChange}
-          onBookCall={handleBookCall}
           onViewProjects={handleViewProjects}
         />
 
         <DeveloperProfile activeId={activeId} onActiveChange={handleActiveChange} />
 
         <ContactForm
-          ref={contactRef}
           selectedDeveloper={contactDeveloper}
           onDeveloperChange={setContactDeveloper}
         />

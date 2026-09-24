@@ -12,12 +12,13 @@ describe('Monkey Portfolio', () => {
     expect(screen.getByText(/calm systems, even under pressure/i)).toBeInTheDocument();
   });
 
-  it('preselects the active developer when booking a call', () => {
+  it('keeps the active developer selected when following the booking link', () => {
     render(<App />);
 
     fireEvent.click(screen.getByRole('button', { name: /select iwazaru/i }));
-    fireEvent.click(screen.getByRole('button', { name: /book a call with iwazaru/i }));
+    const bookingLink = screen.getByRole('link', { name: /book a call with iwazaru/i });
 
+    expect(bookingLink).toHaveAttribute('href', '#contact');
     expect(screen.getByLabelText(/^developer$/i)).toHaveValue('iwazaru');
   });
 
@@ -72,14 +73,6 @@ describe('Monkey Portfolio', () => {
 
     expect(project!.scrollIntoView).toHaveBeenCalledOnce();
     expect(project).toHaveFocus();
-  });
-
-  it('moves focus into the contact form after booking', () => {
-    render(<App />);
-
-    fireEvent.click(screen.getByRole('button', { name: /book a call with mizaru/i }));
-
-    expect(screen.getByLabelText(/your name/i)).toHaveFocus();
   });
 
   it('announces invalid submission and focuses the first invalid field', () => {

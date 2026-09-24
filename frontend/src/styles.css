@@ -671,18 +671,6 @@ a {
   grid-column: 1 / -1;
 }
 
-.contact-form__error-summary {
-  grid-column: 1 / -1;
-  margin: 0;
-  padding: 12px 14px;
-  border: 1px solid #711d14;
-  border-radius: 3px;
-  color: #55170f;
-  background: rgba(255, 253, 241, 0.4);
-  font-size: 0.82rem;
-  font-weight: 750;
-}
-
 .field label {
   font-size: 0.7rem;
   font-weight: 850;
@@ -720,16 +708,6 @@ a {
 .field textarea:focus {
   background: rgba(255, 253, 241, 0.5);
   outline: 0;
-}
-
-.field [aria-invalid="true"] {
-  border-bottom-color: #711d14;
-}
-
-.field__error {
-  color: #55170f;
-  font-size: 0.76rem;
-  font-weight: 750;
 }
 
 .contact-form__submit {

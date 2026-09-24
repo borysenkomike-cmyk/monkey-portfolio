@@ -71,15 +71,11 @@ describe('Monkey Portfolio', () => {
     expect(projectLink).toHaveAttribute('href', '#projects');
   });
 
-  it('announces invalid submission and focuses the first invalid field', () => {
+  it('accepts an empty local submission without validation', () => {
     render(<App />);
-    const email = screen.getByLabelText(/email/i);
-    fireEvent.change(email, { target: { value: 'ada@example.com' } });
 
     fireEvent.click(screen.getByRole('button', { name: /send project brief/i }));
 
-    expect(screen.getByRole('alert')).toHaveTextContent(/check the highlighted fields/i);
-    expect(screen.getByLabelText(/your name/i)).toHaveFocus();
-    expect(email).toHaveValue('ada@example.com');
+    expect(screen.getByRole('status')).toHaveTextContent(/request sent/i);
   });
 });

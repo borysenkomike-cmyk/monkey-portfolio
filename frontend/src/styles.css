@@ -324,10 +324,12 @@ a {
 
 .hero-slide__visual img {
   position: absolute;
-  right: 2%;
-  bottom: -28px;
+  right: 0;
+  bottom: 0;
+  left: 0;
   width: min(100%, 650px);
-  height: 710px;
+  height: 100%;
+  margin: auto;
   object-fit: contain;
   object-position: bottom center;
   filter: drop-shadow(0 28px 28px rgba(5, 22, 15, 0.28));
@@ -833,8 +835,7 @@ a {
     grid-template-columns: minmax(280px, 0.86fr) minmax(360px, 1.14fr);
   }
 
-  .hero-slide__visual,
-  .hero-slide__visual img {
+  .hero-slide__visual {
     height: 610px;
   }
 
@@ -973,15 +974,6 @@ a {
     margin-top: 8px;
   }
 
-  .hero-slide__visual img {
-    right: 0;
-    bottom: -28px;
-    left: 0;
-    width: 100%;
-    height: 540px;
-    margin: auto;
-  }
-
   .hero-slide__number {
     top: 64px;
     font-size: 8rem;
@@ -1097,10 +1089,6 @@ a {
 
   .hero-slide__visual {
     height: 405px;
-  }
-
-  .hero-slide__visual img {
-    height: 450px;
   }
 
   .profile__visual {

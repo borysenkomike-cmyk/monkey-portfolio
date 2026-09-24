@@ -21,7 +21,7 @@ export function ContactForm() {
         <p>Bring us the rough idea. We&apos;ll help turn it into a product people want to use.</p>
       </div>
 
-      <form className="contact-form" onSubmit={handleSubmit} noValidate>
+      <form className="contact-form" onSubmit={handleSubmit}>
         <div className="field">
           <label htmlFor="contact-name">Your name</label>
           <input

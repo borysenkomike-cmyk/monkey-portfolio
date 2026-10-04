@@ -4,13 +4,39 @@ import { ArrowUpRight } from 'lucide-react';
 import { developers } from '../data/developers';
 import { ContactToast } from './ContactToast';
 
+import { ContactError, sendContact } from '../api/contact';
+
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    event.currentTarget.reset();
-    setSubmitted(true);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setIsSending(true);
+    setSendError(null);
+
+    try {
+      await sendContact({
+        name: String(formData.get('name') ?? ''),
+        email: String(formData.get('email') ?? ''),
+        developer: String(formData.get('developer') ?? ''),
+        summary: String(formData.get('summary') ?? ''),
+      });
+      form.reset();
+      setSubmitted(true);
+    } catch (error) {
+      if (error instanceof ContactError && error.status === 429) {
+        setSendError('Too many requests. Please try again in an hour.');
+      } else {
+        setSendError('Could not send your brief. Please try again later.');
+      }
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -29,6 +55,7 @@ export function ContactForm() {
             name="name"
             autoComplete="name"
             placeholder="Jane Appleseed"
+            maxLength={80}
           />
         </div>
 
@@ -40,6 +67,7 @@ export function ContactForm() {
             type="email"
             autoComplete="email"
             placeholder="jane@company.com"
+            maxLength={254}
           />
         </div>
 
@@ -65,11 +93,22 @@ export function ContactForm() {
             name="summary"
             rows={4}
             placeholder="What are we building, and why now?"
+            maxLength={2000}
           />
         </div>
 
-        <button className="button button--primary contact-form__submit" type="submit">
-          Send project brief
+        {sendError && (
+          <p className="contact-form__error" role="alert">
+            {sendError}
+          </p>
+        )}
+
+        <button
+          className="button button--primary contact-form__submit"
+          type="submit"
+          disabled={isSending}
+        >
+          {isSending ? 'Sending…' : 'Send project brief'}
           <ArrowUpRight aria-hidden="true" />
         </button>
       </form>

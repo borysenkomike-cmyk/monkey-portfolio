@@ -15,6 +15,7 @@ export interface Developer {
     description: string;
     result: string;
   };
+  repo: string;
   heroImage: string;
   profileImage: string;
   accent: string;
@@ -36,6 +37,7 @@ export const developers: Developer[] = [
       description: 'A calm planning workspace for creative teams with a fast, expressive interface.',
       result: '42% faster weekly planning',
     },
+    repo: 'react/react',
     heroImage: '/images/mizaru-hero.png',
     profileImage: '/images/mizaru-profile.png',
     accent: '#e7ff43',
@@ -55,6 +57,7 @@ export const developers: Developer[] = [
       description: 'A resilient event platform that keeps customer operations moving during peak traffic.',
       result: '99.99% successful event delivery',
     },
+    repo: 'nodejs/node',
     heroImage: '/images/kikazaru-hero.png',
     profileImage: '/images/kikazaru-profile.png',
     accent: '#ff775f',
@@ -74,6 +77,7 @@ export const developers: Developer[] = [
       description: 'A privacy-first feedback product for distributed teams who need honest signals.',
       result: '3.4x more useful feedback',
     },
+    repo: 'flutter/flutter',
     heroImage: '/images/iwazaru-hero.png',
     profileImage: '/images/iwazaru-profile.png',
     accent: '#ffcc33',

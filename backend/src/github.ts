@@ -61,13 +61,16 @@ export async function getRepo(owner: string, repo: string): Promise<ProjectDto> 
     return cached.project;
   }
 
-  const response = await fetch(`${GITHUB_API}/repos/${owner}/${repo}`, {
-    headers: {
-      Accept: 'application/vnd.github+json',
-      'User-Agent': 'monkey-portfolio',
-      'X-GitHub-Api-Version': '2022-11-28',
-    },
-  });
+const response = await fetch(`${GITHUB_API}/repos/${owner}/${repo}`, {
+  headers: {
+    Accept: 'application/vnd.github+json',
+    'User-Agent': 'monkey-portfolio',
+    'X-GitHub-Api-Version': '2022-11-28',
+    ...(process.env.GITHUB_TOKEN && {
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+    }),
+  },
+});
 
   if (!response.ok) {
     throw new GithubError(response.status, `GitHub responded with ${response.status} for ${owner}/${repo}`);

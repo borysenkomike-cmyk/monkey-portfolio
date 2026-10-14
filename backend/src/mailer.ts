@@ -3,11 +3,14 @@ import nodemailer from 'nodemailer';
 import { config } from './config.js';
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // false для порту 587 (використовує STARTTLS)
   auth: {
     user: config.gmailUser,
     pass: config.gmailAppPassword,
   },
+  family: 4, // Примусово використовувати IPv4 
 });
 
 export async function sendAutoReply(to: string, name: string): Promise<void> {

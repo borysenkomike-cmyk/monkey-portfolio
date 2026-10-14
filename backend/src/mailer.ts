@@ -10,8 +10,8 @@ const transporter = nodemailer.createTransport({
     user: config.gmailUser,
     pass: config.gmailAppPassword,
   },
-  family: 4, // Примусово використовувати IPv4 
-});
+  family: 4, // Примусово використовувати IPv4
+} as any); // Використовуємо any для уникнення помилок типізації
 
 export async function sendAutoReply(to: string, name: string): Promise<void> {
   await transporter.sendMail({

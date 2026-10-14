@@ -1,9 +1,14 @@
+import cors from '@fastify/cors';
 import Fastify, { type FastifyError } from 'fastify';
 import { getRepo, GithubError } from './github.js';
 import rateLimit from '@fastify/rate-limit';
 import { sendAutoReply } from './mailer.js';
 
 const app = Fastify({ logger: true });
+await app.register(cors, {
+  origin: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+});
 
 await app.register(rateLimit, { global: false });
 

@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-"scripts": {
+  "scripts": {
     "dev": "tsx watch src/server.ts",
     "typecheck": "tsc --noEmit",
     "build": "tsc",
@@ -13,6 +13,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@fastify/cors": "^11.3.1",
     "@fastify/rate-limit": "^11.2.0",
     "fastify": "^5.12.5",
     "nodemailer": "^10.0.13"

@@ -12,7 +12,7 @@ export interface ProjectDto {
 }
 
 export async function fetchProject(repo: string): Promise<ProjectDto> {
-  const response = await fetch(`/api/projects/${repo}`);
+  const response = await fetch(`https://monkey-portfolio.onrender.com/api/projects/${repo}`);
 
   if (!response.ok) {
     throw new Error(`Failed to load ${repo}: ${response.status}`);

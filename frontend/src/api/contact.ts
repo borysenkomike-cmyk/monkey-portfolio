@@ -6,7 +6,7 @@ export interface ContactRequest {
 }
 
 export async function sendContact(data: ContactRequest): Promise<void> {
-  const response = await fetch('https://monkey-portfolio.onrender.com//api/contact', {
+  const response = await fetch('https://monkey-portfolio.onrender.com/api/contact', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
